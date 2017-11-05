@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+    nginx:
+        image: nginx
+        ports:
+            - 4000:80
+        volumes:
+            - ./moodle:/usr/share/nginx/html/moodle
+            - ./nginx.conf:/etc/nginx/conf.d/moodle.conf
+    php:
+        build: .
+        volumes:
+            - ./moodle:/usr/share/nginx/html/moodle
+            - ./moodledata:/var/moodledata
+    mysql:
+        image: mysql
+        environment:
+            - MYSQL_DATABASE=moodle
+            - MYSQL_ROOT_PASSWORD=xxxxxxxx
+        volumes:
+            - ./mysql:/var/lib/mysql
